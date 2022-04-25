@@ -10,33 +10,28 @@ if (isset($_POST['signup']))
     $password=$_POST['password'];
     $cpassword=$_POST['c_password'];
     $urole='user';
-    //Test
-    // echo $firstname.",".$lastname.",".$email.",".$password.",".strlen($password);
-    // if (strlen($password)>20 || strlen(($password) <5)){
-    //    echo "<br>true";
-    // }
-    // exit();
+    
 
     if (empty($firstname)){
-        $_SESSION['error']='กรุณากรอกชื่อ';
+        $_SESSION['error']='FirstName is required';
         header("location: index.php");
     } else if (empty($lastname)) {
-        $_SESSION['error']='กรุณากรอกนามสกุล';
+        $_SESSION['error']='LastName is required';
         header("location: index.php");
     } else if (empty($email)) {
-        $_SESSION['error']='กรุณากรอก Email';
+        $_SESSION['error']='Email is required';
         header("location: index.php");
     } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $_SESSION['error']='รูปแบบ Email ไม่ถูกต้อง';
+        $_SESSION['error']='Email format is not correct';
         header("location: index.php");
     } else if (empty($password)){
-        $_SESSION['error']='กรุณากรอก password';
+        $_SESSION['error']='Password is required';
         header("location: index.php");
     } else if (strlen($password)>20 || strlen(($password) <5)){
-        $_SESSION['error']='Password ต้องมีความยาว 6 ถึง 20 ตัวอักษร';
+        $_SESSION['error']='Password length must be between 6 to 20 charactors';
         header("location: index.php");
     } else if ($password !=$cpassword){
-        $_SESSION['error']='Password ไม่ตรงกัน';
+        $_SESSION['error']='Password not matched';
         header("location: index.php");
     } else {
         //All Set
@@ -48,7 +43,7 @@ if (isset($_POST['signup']))
             $row=$check_email->fetch((PDO::FETCH_ASSOC));
 
             if ($row['email']==$email) {
-                $_SESSION['warning'] = "มีอีเมลนี้อยู่ในระบบแล้ว <a href='signup.php'>คลิ๊กที่นี่</a> เพื่อเข้าสู่ระบบ";
+                $_SESSION['warning'] = "This email is already in System <a href='signup.php'>Click here</a> to signin";
                 //close connection
                 $conn=null;
                 header("location: index.php");
@@ -62,18 +57,18 @@ if (isset($_POST['signup']))
                 $stmt->bindParam(":pwd",$passwordHash);
                 $stmt->bindParam(":urole",$urole);
                 $stmt->execute();
-                $_SESSION['success'] ="สมัครสมาชิกเรียบร้อยแล้ว! <a href='signin.php' class='alert-link'>คลิ๊กที่นี่</a> เพื่อเข้าสู่ระบบ";
+                $_SESSION['success'] ="Registration successfully done! <a href='signin.php' class='alert-link'>Click here</a> to signin";
                 $conn=null;
                 header("location: index.php");
             } else {
-                $_SESSION['error'] ="มีบางอย่างผิดพลาด";
+                $_SESSION['error'] ="There is some error";
                 $conn=null;
                 header("location: index.php");                
             }
 
 
         } catch (PDOException $e) {
-            $_SESSION['error'] = "พบข้อผิดพลาด ".$e->getMessage();
+            $_SESSION['error'] = "There is some error: ".$e->getMessage();
             header("location: index.php");
         }
 
@@ -82,7 +77,7 @@ if (isset($_POST['signup']))
 }
 else
 {
-    $_SESSION['error'] ="มีบางอย่างผิดพลาด หา signup ไม่เจอ";
+    $_SESSION['error'] ="There is no data";
     header("location: index.php");
 }
 

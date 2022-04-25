@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container">
-        <h3 class="mt-4">สมัครสมาชิก</h3>
+        <h3 class="mt-4">Registration</h3>
         <hr>
         <form action="signup_db.php" method="POST">
             <?php if (isset($_SESSION['error'])){ ?>
@@ -67,7 +67,7 @@
             <button type="submit" class="btn btn-primary" name="signup">Sing Up</button>
         </form>
         <br>
-        <p>เป็นสมาชิกแล้ว <a href="signin.php">คลิ๊กที่นี่ เพื่อเข้าสู่ระบบ</a></p>
+        <p>You are already signed up, <a href="signin.php">Click here</a></p> to sign in.
     </div>
     
 

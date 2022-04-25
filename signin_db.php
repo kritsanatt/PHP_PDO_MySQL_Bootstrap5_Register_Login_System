@@ -7,24 +7,18 @@ if (isset($_POST['signin']))
     $email=$_POST['email'];
     $password=$_POST['password'];
 
-    //Test
-    // echo $firstname.",".$lastname.",".$email.",".$password.",".strlen($password);
-    // if (strlen($password)>20 || strlen(($password) <5)){
-    //    echo "<br>true";
-    // }
-    // exit();
 
     if (empty($email)) {
-        $_SESSION['error']='กรุณากรอก Email';
+        $_SESSION['error']='Email is required';
         header("location: signin.php");
     } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $_SESSION['error']='รูปแบบ Email ไม่ถูกต้อง';
+        $_SESSION['error']='Email format is not correct';
         header("location: signin.php");
     } else if (empty($password)){
-        $_SESSION['error']='กรุณากรอก password';
+        $_SESSION['error']='Password is required';
         header("location: signin.php");
     } else if (strlen($password)>20 || strlen(($password) <5)){
-        $_SESSION['error']='Password ต้องมีความยาว 6 ถึง 20 ตัวอักษร';
+        $_SESSION['error']='Password length must be between 6 to 20 charactors';
         header("location: signin.php");
     } else {
         //All Set
@@ -50,25 +44,25 @@ if (isset($_POST['signin']))
                     }
                     else
                     {
-                        $_SESSION['error'] ="รหัสผ่านไม่ถูกต้อง";
+                        $_SESSION['error'] ="Password is not correcct";
                         $conn=null;
                         header("location: signin.php");
                     }
                 }
                 else {
-                    $_SESSION['error'] ="Username ไม่ถูกต้อง";
+                    $_SESSION['error'] ="Username is not correct";
                     $conn=null;
                     header("location: signin.php");
                 }
             } else {
-                $_SESSION['warning'] = "ไม่มีข้อมูลในระบบ <a href='index.php'>คลิ๊กที่นี่</a> เพื่อลงทะเบียนใหม่";
+                $_SESSION['warning'] = "This user is not found. <a href='index.php'>Click here</a> to register";
                 $conn=null;
                 header("location: signup.php");
             }
 
 
         } catch (PDOException $e) {
-            $_SESSION['error'] = "พบข้อผิดพลาด ".$e->getMessage();
+            $_SESSION['error'] = "There is some error: ".$e->getMessage();
             header("location: signin.php");
         }
 
@@ -77,7 +71,7 @@ if (isset($_POST['signin']))
 }
 else
 {
-    $_SESSION['error'] ="มีบางอย่างผิดพลาด หา signup ไม่เจอ";
+    $_SESSION['error'] ="There is no data";
     header("location: signin.php");
 }
 

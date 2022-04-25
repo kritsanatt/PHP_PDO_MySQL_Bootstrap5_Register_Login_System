@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container">
-        <h3 class="mt-4">เข้าสู่ระบบ</h3>
+        <h3 class="mt-4">Sign In</h3>
         <form action="signin_db.php" method="POST">
             <?php if (isset($_SESSION['error'])){ ?>
                 <div class="alert alert-danger" role="alert">
@@ -53,7 +53,7 @@
             <button type="submit" class="btn btn-primary" name="signin">Sing In</button>
         </form>
         <br>
-        <p>ยังไม่ได้เป็นสมาชิก <a href="index.php">คลิ๊กที่นี่ เพื่อสมัครสมาชิก</a></p>
+        <p>Not the member <a href="index.php">Click here</a> to register</p>
     </div>
     
 
